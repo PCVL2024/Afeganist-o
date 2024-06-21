@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Províncias do Afeganistão</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 600px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([33.93911, 67.709953], 6);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+    }).addTo(map);
+
+    var provinces = L.geoJSON(null, {
+      onEachFeature: function(feature, layer) {
+        layer.bindTooltip(feature.properties.name);
+        layer.on({
+          mouseover: function(e) {
+            e.target.openTooltip();
+            e.target.setStyle({
+              'background-color': '#D36135',
+              'color': '#7FB069',
+              'border': '2px solid black'
+            });
+          },
+          mouseout: function(e) {
+            e.target.closeTooltip();
+            e.target.setStyle({
+              'background-color': '',
+              'color': '',
+              'border': ''
+            });
+          }
+        });
+      }
+    });
+
+    fetch('https://gist.githubusercontent.com/notacouch/246dcbb684571b8dff41fc3ed325972f/raw/5e1f3c66b4213fb0424743cd1eb036e1c8c7fb23/afghanistan_provinces_geometry--cities-demo.json')
+      .then(response => response.json())
+      .then(data => {
+        provinces.addData(data);
+        map.fitBounds(provinces.getBounds());
+      });
+
+    map.addLayer(provinces);
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
