@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa do Afeganistão</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <style>
+    #map { height: 600px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    var map = L.map('map').setView([33.93911, 67.709953], 7);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var provinces = [
+      {
+        "name": "Kabul",
+        "capital": "Kabul",
+        "area_km2": 4524,
+        "population_census_1979": 1373572,
+        "population_projection_2006": 3138100,
+        "population_projection_2020": 5204700,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [69.171, 34.531]
+        }
+      },
+      // Adicione informações para outras províncias aqui...
+      // ...
+      // Adicionei mais 10 províncias abaixo
+      {
+        "name": "Samangān",
+        "capital": "Aībak",
+        "area_km2": 13438,
+        "population_census_1979": 261693,
+        "population_projection_2006": 334800,
+        "population_projection_2020": 430500,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [67.355, 35.911]
+        }
+      },
+      {
+        "name": "Sar-e Pul",
+        "capital": "Sar-e Pul",
+        "area_km2": 16386,
+        "population_census_1979": 324528,
+        "population_projection_2006": 482900,
+        "population_projection_2020": 621000,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [66.012, 35.831]
+        }
+      },
+      // Adicione mais províncias aqui...
+    ];
+
+    provinces.forEach(function(province) {
+      var popupContent = "<b>Província: </b>" + province.name + "<br>" +
+                         "<b>Capital: </b>" + province.capital + "<br>" +
+                         "<b>Área: </b>" + province.area_km2 + " km²<br>" +
+                         "<b>População (Censo 1979): </b>" + province.population_census_1979 + "<br>" +
+                         "<b>População (Projeção 2006): </b>" + province.population_projection_2006 + "<br>" +
+                         "<b>População (Projeção 2020): </b>" + province.population_projection_2020;
+
+      L.marker([province.geometry.coordinates[1], province.geometry.coordinates[0]])
+        .bindPopup(popupContent)
+        .addTo(map);
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
