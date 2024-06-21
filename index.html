@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapa de Badakhshān, Afeganistão</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([36.73477250, 70.81199530], 8);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        var geojsonUrl = 'https://gist.githubusercontent.com/notacouch/f97501dbcfb44e14cabd6d5ed710e10b/raw/511421c31f6a0ad870bc47dbc0d9826c5d315363/afghanist-provinces-districts--cities-demo.json';
+
+        fetch(geojsonUrl)
+            .then(response => response.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    style: function (feature) {
+                        return {
+                            fillColor: "#ffff00", // amarelo
+                            color: "#00ff00", // verde
+                            weight: 2,
+                            opacity: 1,
+                            fillOpacity: 0.7
+                        };
+                    },
+                    onEachFeature: function (feature, layer) {
+                        var popupContent = `<b>${feature.properties.name}</b><br>`;
+
+                        // Adicionando população, se disponível
+                        if (feature.properties.population) {
+                            popupContent += `População: ${feature.properties.population}<br>`;
+                        }
+
+                        layer.bindPopup(popupContent);
+
+                        // Adicionando eventos de hover
+                        layer.on({
+                            mouseover: function (e) {
+                                this.setStyle({
+                                    fillColor: "#ff0000", // vermelho
+                                    color: "#00ff00", // verde
+                                    weight: 2,
+                                    opacity: 1,
+                                    fillOpacity: 0.7
+                                });
+                            },
+                            mouseout: function (e) {
+                                this.setStyle({
+                                    fillColor: "#ffff00", // amarelo
+                                    color: "#00ff00", // verde
+                                    weight: 2,
+                                    opacity: 1,
+                                    fillOpacity: 0.7
+                                });
+                            }
+                        });
+                    }
+                }).addTo(map);
+            });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
