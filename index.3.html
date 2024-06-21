@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Político do Afeganistão</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #map {
+            height: 100vh;
+        }
+        .leaflet-popup-content {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([33.9391, 67.71], 6);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var cities = [
+            { name: "Cabul", lat: 34.5553, lng: 69.2075, info: "Capital e maior cidade do Afeganistão." },
+            { name: "Herat", lat: 34.3529, lng: 62.2041, info: "Conhecida por suas belas mesquitas." },
+            { name: "Kandahar", lat: 31.6289, lng: 65.7372, info: "Uma das cidades mais antigas do Afeganistão." },
+            { name: "Mazar-e Sharif", lat: 36.709, lng: 67.1109, info: "Famosa pelo Santuário Azul." },
+            { name: "Jalalabad", lat: 34.4342, lng: 70.4473, info: "Importante centro comercial e cultural." },
+            { name: "Kunduz", lat: 36.7284, lng: 68.8681, info: "Importante centro comercial no norte do Afeganistão." },
+            { name: "Ghazni", lat: 33.5539, lng: 68.4200, info: "Cidade histórica com muitas ruínas antigas." },
+            { name: "Balkh", lat: 36.7564, lng: 66.8972, info: "Conhecida por suas ruínas antigas e importância histórica." },
+            { name: "Taloqan", lat: 36.7361, lng: 69.5345, info: "Cidade importante no nordeste do Afeganistão." },
+            { name: "Zaranj", lat: 30.9596, lng: 61.8604, info: "Capital da província de Nimruz, localizada perto da fronteira com o Irã." },
+            { name: "Pul-e Khumri", lat: 35.9446, lng: 68.7151, info: "Capital da província de Baghlan." },
+            { name: "Sheberghan", lat: 36.6676, lng: 65.7529, info: "Capital da província de Jowzjan." },
+            { name: "Farah", lat: 32.3745, lng: 62.1164, info: "Capital da província de Farah." },
+            { name: "Charikar", lat: 35.0183, lng: 69.1678, info: "Capital da província de Parwan." },
+            { name: "Lashkar Gah", lat: 31.5938, lng: 64.3716, info: "Capital da província de Helmand." },
+            { name: "Maymana", lat: 35.9214, lng: 64.7836, info: "Capital da província de Faryab." }
+        ];
+
+        cities.forEach(function(city) {
+            L.marker([city.lat, city.lng], { title: city.name })
+                .addTo(map)
+                .bindPopup('<b>' + city.name + '</b><br>' + city.info);
+        });
+    </script>
+</body>
+</html>
+
+
+
+
